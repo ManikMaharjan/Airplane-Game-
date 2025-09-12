@@ -6,6 +6,7 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 from game_stats import GameStats
+from button import Button
 class AlienInvasion:
     """Overall class to manage game asset and behaviour"""
     def __init__(self):
@@ -28,17 +29,21 @@ class AlienInvasion:
         self._create_fleet()
         #create an instance to store game statistic
         self.stats=GameStats(self)
+        #Make the play button
+        self.play_button = Button(self,"Play")
      
     def run_game(self):
         """Start the main loop for the game"""
         while True:
+                     
             self._check_events()
-            #if self.stats.game_active:
-            self.ship.update()
-            self._update_screen()   
-            self.bullets.update()
-            self. _update_bullets()
-            self. _update_aliens()
+            if self.stats.game_active:
+    
+                    self.ship.update()
+                    self._update_screen()   
+                    self.bullets.update()
+                    self. _update_bullets()
+                    self. _update_aliens()
 
        
             
@@ -123,6 +128,10 @@ class AlienInvasion:
         
         #alien 
         self.aliens.draw(self.screen)
+        ###Draw the plat button if the game is inactive
+        if not self.stats.game_active:
+            self.play_button.draw_button()
+        
         ####
         pygame.display.flip()  
         
@@ -199,7 +208,7 @@ class AlienInvasion:
         #pause
             sleep(0.5)
         else:
-            self.stats.game_active =False
+            self.stats.game_active =True
         
     def _check_alien_botton(self):
         """check if any aliens have reached the bottom of the screen"""
