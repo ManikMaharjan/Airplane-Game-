@@ -1,0 +1,3 @@
+Step 1:-
+installing pygame :-
+--pip install --user pygame
